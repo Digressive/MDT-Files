@@ -1,0 +1,26 @@
+----Find the indexes within an ESD or WIM file----
+dism /Get-WimInfo /WimFile:install.esd
+
+---Convert ESD image to WIM----
+dism /Export-Image /SourceImageFile:install.esd /SourceIndex:1 /DestinationImageFile:install.wim /Compress:max /CheckIntegrity
+
+----Export the Application Associations from Windows 10----
+dism /Online /Export-DefaultAppAssociations:"C:\AppAssociations.xml"
+
+----Mount a WIM image---
+dism /Mount-Image /ImageFile:C:\source-files-folder\sources\install.wim /Index:1 /MountDir:C:\mounted /Optimize
+
+----Import Application Association XML file into WIM image---- 
+dism /Image:C:\mounted /Import-DefaultAppAssociations:C:\AppAssociations.xml
+
+----Save and unmount WIM image----
+dism /Unmount-image /MountDir:C:\mounted /Commit
+
+----Run this batch file before creating a Windows 10 ISO---
+"C:\Program Files (x86)\Windows Kits\10\Assessment and Deployment Kit\Deployment Tools\DandISetEnv.bat"
+
+----Create Windows 10 custom ISO----
+oscdimg -m -o -u2 -udfver102 -bootdata:2#p0,e,bC:\source-files-folder\boot\etfsboot.com#pEF,e,bC:\source-files-folder\efi\microsoft\boot\efisys.bin C:\esd C:\W10-1909-custom.iso
+
+----Enable .NET Framework 3.5 in Windows 10----
+dism /Online /Enable-Feature /FeatureName:NetFX3 /Source:Path-To-dotNET-Folder\dotNET35-Win10-19XX /LimitAccess

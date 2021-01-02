@@ -1,0 +1,1 @@
+Import-StartLayout -LayoutPath "$env:allusersprofile\Microsoft\Windows\StartLayout.xml" -MountPath $env:SystemDrive\

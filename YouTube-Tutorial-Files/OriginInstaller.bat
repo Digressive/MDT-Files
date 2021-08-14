@@ -1,5 +1,5 @@
 echo off
-Z:\Applications\Origin\originsetup.exe /silent
+%DEPLOYROOT%\Applications\Origin\originsetup.exe /silent
 :loop
 timeout /t 10 /nobreak
 tasklist /fi "imagename eq originthinsetupinternal.exe" |find ":" > nul

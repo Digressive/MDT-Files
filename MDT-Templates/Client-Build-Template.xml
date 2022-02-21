@@ -1,5 +1,5 @@
 <?xml version="1.0"?>
-<sequence version="3.00" name="Client Build Template" description="A template task sequence for build and capture">
+<sequence version="3.00" name="- Client Build Template -" description="A template task sequence for build and capture">
   <globalVarList>
     <variable name="OSGUID" property="OSGUID">{c1554210-991e-4cd6-a3a6-a0d4458d5a64}</variable>
     <variable name="DestinationDisk" property="DestinationDisk">0</variable>

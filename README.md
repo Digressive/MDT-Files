@@ -1,13 +1,12 @@
 # MDT-Files
 
-Some template files for Microsoft Deployment Toolkit configuration.
+Scripts and templates for Microsoft Deployment Toolkit configuration.
 
 Please consider donating to support my work:
 
-* You can support me [using Patreon](https://www.patreon.com/mikegalvin)
-* You can support me [using PayPal](https://www.paypal.me/digressive)
-* You can support me [using Kofi](https://ko-fi.com/mikegalvin)
+* Sign up [using Patreon.](https://www.patreon.com/mikegalvin)
+* Support with a one-time payment [using PayPal.](https://www.paypal.me/digressive)
 
-Follow me on twitter: [@mikegalvin_](https://twitter.com/mikegalvin_)
+Join the [Discord](http://discord.gg/5ZsnJ5k) or Tweet me if you have questions: [@mikegalvin_](https://twitter.com/mikegalvin_)
 
 -Mike

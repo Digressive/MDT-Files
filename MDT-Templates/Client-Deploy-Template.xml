@@ -1,20 +1,20 @@
 <?xml version="1.0"?>
 <sequence version="3.00" name="- Client Deploy Template -" description="A complete task sequence for client deployment">
   <globalVarList>
-    <variable name="OSGUID" property="OSGUID">{1df9e513-c3cd-4728-bfd8-ac42aac6e7e6}</variable>
+    <variable name="OSGUID" property="OSGUID">{e826a015-6755-4222-bf1b-b54162975701}</variable>
     <variable name="DestinationDisk" property="DestinationDisk">0</variable>
     <variable name="DestinationPartition" property="DestinationPartition">1</variable>
     <variable name="DestinationOSVariable" property="DestinationOSVariable">OSDisk</variable>
     <variable name="DestinationOSRefresh" property="DestinationOSRefresh"></variable>
     <variable name="DestinationOSDriveLetter" property="DestinationOSDriveLetter"></variable>
     <variable name="DestinationOSInstallType" property="DestinationOSInstallType">ByVariable</variable>
-    <variable name="OSGUID" property="OSGUID">{1df9e513-c3cd-4728-bfd8-ac42aac6e7e6}</variable>
+    <variable name="OSGUID" property="OSGUID">{e826a015-6755-4222-bf1b-b54162975701}</variable>
   </globalVarList>
   <group name="Initialization" disable="false" continueOnError="false" description="Initialize the TS environment" expand="false">
     <step type="BDD_Gather" name="Gather local only" disable="false" continueOnError="false" successCodeList="0 3010" description="" startIn="">
       <defaultVarList>
         <variable name="GatherLocalOnly" property="GatherLocalOnly">true</variable>
-        <variable name="RulesFile" property="RulesFile"></variable>
+        <variable name="RulesFile" property="RulesFile">customsettings.ini</variable>
       </defaultVarList>
       <action>cscript.exe "%SCRIPTROOT%\ZTIGather.wsf"</action>
     </step>
@@ -365,6 +365,59 @@
         <variable name="VariableValue" property="VariableValue">%Make%\%Model%</variable>
       </defaultVarList>
       <action>cscript.exe "%SCRIPTROOT%\ZTISetVariable.wsf"</action>
+      <condition></condition>
+    </step>
+    <step type="SMS_TaskSequence_SetVariableAction" name="Set DriverGroup if not HP" description="" disable="true" continueOnError="false" successCodeList="0 3010">
+      <defaultVarList>
+        <variable name="VariableName" property="VariableName">DriverGroup001</variable>
+        <variable name="VariableValue" property="VariableValue">%Make%\%Model%</variable>
+      </defaultVarList>
+      <action>cscript.exe "%SCRIPTROOT%\ZTISetVariable.wsf"</action>
+      <condition>
+        <operator type="or">
+          <expression type="SMS_TaskSequence_VariableConditionExpression">
+            <variable name="Variable">Make</variable>
+            <variable name="Operator">notEquals</variable>
+            <variable name="Value">HP</variable>
+          </expression>
+          <expression type="SMS_TaskSequence_VariableConditionExpression">
+            <variable name="Variable">Make</variable>
+            <variable name="Operator">notEquals</variable>
+            <variable name="Value">Hewlett-Packard</variable>
+          </expression>
+          <expression type="SMS_TaskSequence_VariableConditionExpression">
+            <variable name="Variable">Make</variable>
+            <variable name="Operator">notEquals</variable>
+            <variable name="Value">Hewlett Packard</variable>
+          </expression>
+        </operator>
+      </condition>
+    </step>
+    <step type="SMS_TaskSequence_SetVariableAction" name="Set DriverGroup for HPs" description="" disable="true" continueOnError="false" successCodeList="0 3010">
+      <defaultVarList>
+        <variable name="VariableName" property="VariableName">DriverGroup001</variable>
+        <variable name="VariableValue" property="VariableValue">HP\%Model%</variable>
+      </defaultVarList>
+      <action>cscript.exe "%SCRIPTROOT%\ZTISetVariable.wsf"</action>
+      <condition>
+        <operator type="or">
+          <expression type="SMS_TaskSequence_VariableConditionExpression">
+            <variable name="Variable">Make</variable>
+            <variable name="Operator">equals</variable>
+            <variable name="Value">HP</variable>
+          </expression>
+          <expression type="SMS_TaskSequence_VariableConditionExpression">
+            <variable name="Variable">Make</variable>
+            <variable name="Operator">equals</variable>
+            <variable name="Value">Hewlett-Packard</variable>
+          </expression>
+          <expression type="SMS_TaskSequence_VariableConditionExpression">
+            <variable name="Variable">Make</variable>
+            <variable name="Operator">equals</variable>
+            <variable name="Value">Hewlett Packard</variable>
+          </expression>
+        </operator>
+      </condition>
     </step>
     <step type="BDD_InjectDrivers" name="Inject Drivers" description="" disable="false" continueOnError="false" runIn="WinPEandFullOS" successCodeList="0 3010">
       <defaultVarList>
@@ -399,7 +452,7 @@
     </condition>
     <step type="BDD_InstallOS" name="Install Operating System" description="" disable="false" continueOnError="false" runIn="WinPEandFullOS" successCodeList="0 3010">
       <defaultVarList>
-        <variable name="OSGUID" property="OSGUID">{1df9e513-c3cd-4728-bfd8-ac42aac6e7e6}</variable>
+        <variable name="OSGUID" property="OSGUID">{e826a015-6755-4222-bf1b-b54162975701}</variable>
         <variable name="DestinationDisk" property="DestinationDisk">0</variable>
         <variable name="DestinationPartition" property="DestinationPartition">1</variable>
         <variable name="DestinationOSDriveLetter" property="DestinationOSDriveLetter"></variable>

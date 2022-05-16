@@ -535,44 +535,46 @@ Class ZTIGather
 		End if
 
 
+		' Lenovo Model Fix Start
 		' Get the make, model, and memory from the Win32_ComputerSystem class
-		' Added fix for Lenovo models
 
 		Set objResults = objWMI.InstancesOf("Win32_ComputerSystem")
 		For each objInstance in objResults
 		If not IsNull(objInstance.Manufacturer) then
 			sMake = Trim(objInstance.Manufacturer)
 		End if
-			If sMake <> "LENOVO" Then
-				If not IsNull(objInstance.Model) then
-					sModel = Trim(objInstance.Model)
-				End if
+		If sMake <> "LENOVO" Then
+			If not IsNull(objInstance.Model) then
+				sModel = Trim(objInstance.Model)
 			End if
+		End if
 		If not IsNull(objInstance.TotalPhysicalMemory) then
 			sMemory = Trim(Int(objInstance.TotalPhysicalMemory / 1024 / 1024))
 		End if
-	Next
+		
+		Next
 		If sMake = "" then
 			oLogging.CreateEntry "Unable to determine make via WMI.", LogTypeInfo
 		End if
-	If sMake <> "LENOVO" Then
-		If sModel = "" then
-			oLogging.CreateEntry "Unable to determine model via WMI.", LogTypeInfo
-		End if
-	End If
+		If sMake <> "LENOVO" Then
+			If sModel = "" then
+				oLogging.CreateEntry "Unable to determine model via WMI.", LogTypeInfo
+			End if
+		End If
 
-	' Get the UUID from the Win32_ComputerSystemProduct class
-	Set objResults = objWMI.InstancesOf("Win32_ComputerSystemProduct")
-	For each objInstance in objResults
-	If not IsNull(objInstance.UUID) then
-		sUUID = Trim(objInstance.UUID)
-	End if
-	If sMake = "LENOVO" Then
-		If not IsNull(objInstance.Version) then
-			sModel = Trim(objInstance.Version)
+		' Get the UUID from the Win32_ComputerSystemProduct class
+		Set objResults = objWMI.InstancesOf("Win32_ComputerSystemProduct")
+		For each objInstance in objResults
+			If not IsNull(objInstance.UUID) then
+				sUUID = Trim(objInstance.UUID)
+			End if
+		If sMake = "LENOVO" Then
+			If not IsNull(objInstance.Version) then
+				sModel = Trim(objInstance.Version)
+			End if
 		End if
-	End if
-	Next
+		
+		Next
 		If sUUID = "" then
 			oLogging.CreateEntry "Unable to determine UUID via WMI.", LogTypeInfo
 		End if
@@ -581,46 +583,8 @@ Class ZTIGather
 			If sModel = "" then
 				oLogging.CreateEntry "Unable to determine model via WMI.", LogTypeInfo
 			End if
-		End if
-		
-		' End of Lenovo Added fix
-
-		Set objResults = objWMI.InstancesOf("Win32_ComputerSystem")
-		For each objInstance in objResults
-
-			If not IsNull(objInstance.Manufacturer) then
-				sMake = Trim(objInstance.Manufacturer)
-			End if
-			If not IsNull(objInstance.Model) then
-				sModel = Trim(objInstance.Model)
-			End if
-			If not IsNull(objInstance.TotalPhysicalMemory) then
-				sMemory = Trim(Int(objInstance.TotalPhysicalMemory / 1024 / 1024))
-			End if
-
-		Next
-		If sMake = "" then
-			oLogging.CreateEntry "Unable to determine make via WMI.", LogTypeInfo
-		End if
-		If sModel = "" then
-			oLogging.CreateEntry "Unable to determine model via WMI.", LogTypeInfo
-		End if
-
-
-		' Get the UUID from the Win32_ComputerSystemProduct class
-
-		Set objResults = objWMI.InstancesOf("Win32_ComputerSystemProduct")
-		For each objInstance in objResults
-
-			If not IsNull(objInstance.UUID) then
-				sUUID = Trim(objInstance.UUID)
-			End if
-
-		Next
-		If sUUID = "" then
-			oLogging.CreateEntry "Unable to determine UUID via WMI.", LogTypeInfo
-		End if
-
+		End if		
+		' Lenovo Model Fix End
 
 		' Get the product from the Win32_BaseBoard class
 

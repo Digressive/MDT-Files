@@ -223,8 +223,10 @@ Class ConfigFile
 				ElseIf len(sName) > 1 and ucase(oEnvironment.Item("SkipGroupSubFolders")) <> "YES" then
 					' If it is a subfolder of the group.
 					for each oGroupItem in oGroupList
-						' Lenovo Fix Added
+						' Lenovo Model Fix
+						'If InStr(1,sName & "\", oGroupItem, vbTextCompare ) <> 0 then
 						If InStr(1,sName & "\", oGroupItem, vbTextCompare ) <> 0 AND (LEN(sName) = LEN(oGroupItem)) then
+						' Lenovo Model Fix End
 							sFound = "Group(Sub): " & sName
 						End if
 					next

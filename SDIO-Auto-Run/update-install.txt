@@ -1,0 +1,14 @@
+verbose 384
+enableinstall on
+keeptempfiles off
+init
+
+checkupdates
+onerror goto :end
+get indexes
+select missing newer better
+install
+onerror goto :end
+:end
+reboot ifneeded
+end

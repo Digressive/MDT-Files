@@ -10,5 +10,4 @@ select missing newer better
 install
 onerror goto :end
 :end
-reboot ifneeded
 end

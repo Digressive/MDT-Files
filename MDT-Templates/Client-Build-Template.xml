@@ -369,7 +369,7 @@
     <step type="BDD_InstallUpdatesOffline" name="Apply Patches" disable="false" continueOnError="false" successCodeList="0 3010" description="" startIn="">
       <action>cscript.exe "%SCRIPTROOT%\ZTIPatches.wsf"</action>
       <defaultVarList>
-        <variable name="PackageSelectionProfile" property="PackageSelectionProfile">W10-21H2</variable>
+        <variable name="PackageSelectionProfile" property="PackageSelectionProfile">All Packages</variable>
       </defaultVarList>
     </step>
     <step name="Next Phase" disable="false" continueOnError="false" successCodeList="0 3010" description="" startIn="">
